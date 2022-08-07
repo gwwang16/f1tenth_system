@@ -1,0 +1,18 @@
+# Alias the Sparkfun 9DoF as imu, and the electronic speed controller as vesc
+# joystick as xbox360/logitch
+# sudo cp 99-racecar.rules /etc/udev/rules.d/99-racecar.rules
+# sudo udevadm control --reload-rules && sudo udevadm trigger 
+
+# ACTION=="add", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9d0f", SYMLINK+="sensors/imu"
+# ACTION=="add", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", SYMLINK+="sensors/vesc"
+# ACTION=="add", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0291", SYMLINK+="input/xboxone"
+# ACTION=="add", ATTRS{idVendor}=="13d3", ATTRS{idProduct}=="3549", SYMLINK+="input/joystick"
+# ACTION=="add", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="sensors/rplidar"
+# KERNEL=="js[0-9]*", ACTION=="add", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02ea", MODE="0666", SYMLINK+="input/xboxone" 
+# KERNEL=="evevt[0-9]*", ACTION=="add", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="02ea", MODE="0666" 
+
+
+KERNEL=="ttyUSB[0-9]*", ACTION=="add", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", GROUP="dialout", SYMLINK+="sensors/rplidar" 
+KERNEL=="ttyACM[0-9]*", ACTION=="add", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="0666", GROUP="dialout", SYMLINK+="sensors/vesc" 
+KERNEL=="js[0-9]*", ACTION=="add", ATTRS{idVendor}=="13d3", ATTRS{idProduct}=="3549", MODE="0666", GROUP="dialout", SYMLINK+="input/joystick"
+
